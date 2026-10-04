@@ -1,0 +1,302 @@
+:root {
+  /* 主色：深苔绿 */
+  --el-color-primary: #33691e;
+  --el-color-primary-light-3: #5b8b3f;
+  --el-color-primary-light-5: #7ea55f;
+  --el-color-primary-light-7: #a6c088;
+  --el-color-primary-light-8: #bcd0a6;
+  --el-color-primary-light-9: #d9e6cd;
+  --el-color-primary-dark-2: #285417;
+
+  /* 页面基调：米白 / 宣纸 */
+  --paper: #faf7f0;
+  --paper-2: #f4efe4;
+  --ink: #2f3327;
+  --ink-2: #5d6353;
+  --line: #ddd5c2;
+  --line-strong: #c4b99f;
+  --moss: #33691e;
+  --moss-soft: #e7efdd;
+  --warn: #b45309;
+  --danger: #b3261e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  /* 宣纸底纹：两层极淡的斜纹叠加 */
+  background-color: var(--paper);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(196, 185, 159, 0.07) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(-45deg, rgba(120, 140, 100, 0.05) 0 1px, transparent 1px 8px);
+  color: var(--ink);
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+  font-size: 14px;
+}
+
+/* ---------- 布局 ---------- */
+.tf-shell {
+  display: flex;
+  min-height: 100vh;
+  gap: 18px;
+  padding: 18px;
+}
+
+.tf-disc-panel {
+  flex: 0 0 268px;
+}
+
+.tf-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ---------- 通用卡片 ---------- */
+.tf-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+
+.tf-card + .tf-card {
+  margin-top: 14px;
+}
+
+.tf-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--moss);
+  letter-spacing: 1px;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--line-strong);
+}
+
+.tf-card-title small {
+  font-weight: 400;
+  color: var(--ink-2);
+  letter-spacing: 0;
+}
+
+/* ---------- 页头 ---------- */
+.tf-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--moss);
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+}
+
+.tf-head h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--moss);
+}
+
+.tf-head .tf-sub {
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+/* ---------- 环形工序盘 ---------- */
+.tf-disc {
+  position: relative;
+  width: 268px;
+  height: 268px;
+  margin: 4px auto 10px;
+}
+
+.tf-disc-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0 62%, rgba(244, 239, 228, 0.9) 63% 100%);
+}
+
+.tf-disc-ring::before {
+  content: '';
+  position: absolute;
+  inset: 26px;
+  border-radius: 50%;
+  border: 1px dashed var(--line);
+}
+
+.tf-disc-pointer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 100px;
+  margin-left: -1px;
+  /* 以盘心为轴：元素的上边缘正好落在圆心上 */
+  transform-origin: 50% 0;
+  background: linear-gradient(to top, rgba(51, 105, 30, 0) 0%, var(--moss) 55%, var(--moss) 100%);
+  transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.5, 1);
+  z-index: 3;
+}
+
+.tf-disc-pointer::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--moss);
+  border: 2px solid var(--paper);
+}
+
+.tf-disc-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 118px;
+  height: 118px;
+  margin: -59px 0 0 -59px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  text-align: center;
+}
+
+.tf-disc-center .tf-center-step {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--moss);
+  letter-spacing: 2px;
+}
+
+.tf-disc-center .tf-center-tea {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--ink-2);
+}
+
+.tf-disc-node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 62px;
+  height: 62px;
+  margin: -31px 0 0 -31px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: #fff;
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 5;
+  text-align: center;
+}
+
+.tf-disc-node:hover {
+  border-color: var(--moss);
+  color: var(--moss);
+  box-shadow: 0 2px 10px rgba(51, 105, 30, 0.16);
+}
+
+.tf-disc-node.is-active {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 3px 12px rgba(51, 105, 30, 0.28);
+}
+
+.tf-disc-node.is-done {
+  border-color: var(--moss);
+  color: var(--moss);
+  background: var(--moss-soft);
+}
+
+/* ---------- 小工具 ---------- */
+.tf-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.tf-stat {
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.tf-stat b {
+  color: var(--moss);
+  font-size: 16px;
+}
+
+.tf-tag-line {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tf-empty {
+  padding: 26px;
+  text-align: center;
+  color: var(--ink-2);
+  font-size: 13px;
+}
+
+.tf-red {
+  color: var(--danger);
+}
+
+.tf-green {
+  color: var(--moss);
+}
+
+/* ---------- Element Plus 微调 ---------- */
+.el-button--primary {
+  --el-button-bg-color: #33691e;
+  --el-button-border-color: #33691e;
+  --el-button-hover-bg-color: #3d7d24;
+  --el-button-hover-border-color: #3d7d24;
+}
+
+.el-table {
+  --el-table-border-color: var(--line);
+  --el-table-header-bg-color: var(--paper-2);
+  font-size: 13px;
+}
+
+.el-table .tf-row-warn {
+  --el-table-tr-bg-color: #fdf1ee;
+}
+
+.el-form-item__label {
+  color: var(--ink-2);
+}
+
+.el-card {
+  border-color: var(--line);
+}
